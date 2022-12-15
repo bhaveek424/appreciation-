@@ -2,6 +2,7 @@ import { ActionFunction, json } from "@remix-run/node";
 import React, { useState } from "react";
 import { FormField } from "~/components/form-field";
 import { Layout } from "~/components/layout";
+import { login, register } from "~/utils/auth.server";
 import {
   validateEmail,
   validateName,
@@ -53,6 +54,19 @@ export const action: ActionFunction = async ({ request }) => {
       },
       { status: 400 }
     );
+
+  switch (action) {
+    case "login": {
+      return await login({ email, password });
+    }
+    case "register": {
+      firstName = firstName as string;
+      lastName = lastName as string;
+      return await register({ email, password, firstName, lastName });
+    }
+    default:
+      return json({ error: `Invalid Form Data` }, { status: 400 });
+  }
 };
 export default function Login() {
   const [action, setAction] = useState("login");
@@ -90,7 +104,7 @@ export default function Login() {
             : "Sign Up To Get Started!"}
         </p>
 
-        <form className="rounded-2xl bg-gray-200 p-6 w-96">
+        <form method="post" className="rounded-2xl bg-gray-200 p-6 w-96">
           {/* Email */}
           <FormField
             htmlFor="email"
