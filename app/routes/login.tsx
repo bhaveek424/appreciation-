@@ -1,6 +1,23 @@
+import React, { useState } from "react";
+import { FormField } from "~/components/form-field";
 import { Layout } from "~/components/layout";
 
 export default function Login() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: string
+  ) => {
+    setFormData((form) => ({
+      ...form,
+      [field]: e.target.value,
+    }));
+  };
+
   return (
     <Layout>
       <div className="h-full flex justify-center items-center flex-col gap-y-4">
@@ -10,27 +27,23 @@ export default function Login() {
         <p className="font-semibold text-slate-300">
           Log In To Give Some Praise!
         </p>
+
         <form className="rounded-2xl bg-gray-200 p-6 w-96">
           {/* Email */}
-          <label htmlFor="email" className="text-blue-600 font-semibold ">
-            Email
-          </label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            className="w-full p-2 rounded-xl my-2 bg-zinc-100"
+          <FormField
+            htmlFor="email"
+            label="Email"
+            value={formData.email}
+            onChange={(e) => handleInputChange(e, "email")}
           />
 
-          {/* Password */}
-          <label htmlFor="password" className="text-blue-600 font-semibold">
-            Password
-          </label>
-          <input
+          {/**Password */}
+          <FormField
+            htmlFor="password"
+            label="Password"
+            value={formData.password}
+            onChange={(e) => handleInputChange(e, "password")}
             type="password"
-            id="password"
-            name="password"
-            className="w-full p-2 rounded-xl my-2 bg-zinc-100"
           />
 
           {/* Submit */}
