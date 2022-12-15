@@ -8,6 +8,7 @@ import {
   validateName,
   validatePassword,
 } from "~/utils/validators.server";
+import { useActionData } from "@remix-run/react";
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
@@ -69,6 +70,9 @@ export const action: ActionFunction = async ({ request }) => {
   }
 };
 export default function Login() {
+  const actionData = useActionData(); // helps to use the error data provided by the server/auth
+  const [formError, setFormError] = useState(actionData?.error || "");
+  const [errors, setErrors] = useState(actionData?.errors || {});
   const [action, setAction] = useState("login");
   const [formData, setFormData] = useState({
     email: "",
@@ -104,13 +108,17 @@ export default function Login() {
             : "Sign Up To Get Started!"}
         </p>
 
-        <form method="post" className="rounded-2xl bg-gray-200 p-6 w-96">
+        <form method="POST" className="rounded-2xl bg-gray-200 p-6 w-96">
+          <div className="text-xs font-semibold text-center tracking-wide text-red-500 w-full">
+            {formError}
+          </div>
           {/* Email */}
           <FormField
             htmlFor="email"
             label="Email"
             value={formData.email}
             onChange={(e) => handleInputChange(e, "email")}
+            error={errors?.email}
           />
 
           {/**Password */}
@@ -120,6 +128,7 @@ export default function Login() {
             value={formData.password}
             onChange={(e) => handleInputChange(e, "password")}
             type="password"
+            error={errors?.password}
           />
           {action !== "login" ? (
             <>
@@ -128,10 +137,12 @@ export default function Login() {
                 label="First Name"
                 value={formData.firstName}
                 onChange={(e) => handleInputChange(e, "firstName")}
+                error={errors?.firstName}
               />
               <FormField
                 htmlFor="lastName"
                 label="Last Name"
+                error={errors?.lastName}
                 value={formData.lastName}
                 onChange={(e) => handleInputChange(e, "lastName")}
               />
