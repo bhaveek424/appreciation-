@@ -74,11 +74,16 @@ export default function Login() {
 
           {/* Submit */}
           <div className="w-full text-center">
-            <input
+            <button
               type="submit"
-              value={action === "login" ? "Sign In" : "Sign Up"}
+              name="_action" {/**Not sure how this works, but this get the job done for telling backend server what we are doing. */}
+              value={action}
               className="rounded-xl cursor-pointer mt-2 bg-yellow-300 px-3 py-2 text-blue-600 font-semibold transition duration-300 ease-in-out hover:bg-yellow-400 hover:-translate-y-1"
-            />
+            >
+              {
+                action === 'login' ? 'Sign In' : "Sign Up"
+              }
+            </button>
           </div>
         </form>
       </div>
