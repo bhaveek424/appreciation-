@@ -19,6 +19,47 @@ model User {
   password  String
   profile   UserProfile?
   updatedAt DateTime     @db.Date
+  authoredAppreciation Appreciation[]   @relation("AuthoredKudos")
+  appreciation         Appreciation[]   @relation("RecievedKudos")
+}
+
+model Appreciation {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  message     String
+  createdAt   DateTime   @default(now())
+  style       AppreciationStyle?
+  author      User       @relation(references: [id], fields: [authorId], "AuthoredKudos")
+  authorId    String     @db.ObjectId
+  recipient   User       @relation(references: [id], fields: [recipientId], "RecievedKudos")
+  recipientId String     @db.ObjectId
+}
+
+type AppreciationStyle {
+  backgroundColor Color @default(YELLOW)
+  textColor       Color @default(WHITE)
+  emoji           Emoji @default(THUMBSUP)
+
+}
+
+enum Emoji {
+  THUMBSUP
+  PARTY
+  HANDSUP
+}
+
+enum Department {
+  MARKETING
+  SALES
+  ENGINEERING
+  HR
+}
+
+enum Color {
+  RED
+  GREEN
+  YELLOW
+  BLUE
+  WHITE
 }
 
 type Profile {
