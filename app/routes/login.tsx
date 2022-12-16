@@ -118,7 +118,7 @@ export default function Login() {
   }, [formData]);
 
   useEffect(() => {
-    firstLoad.current = false;
+    firstLoad.current = true;
   }, []);
 
   return (
