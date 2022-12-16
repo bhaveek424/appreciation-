@@ -1,5 +1,5 @@
-import type { ActionFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import type { LoaderFunction, ActionFunction } from "@remix-run/node";
+import { redirect, json } from "@remix-run/node";
 import React, { useEffect, useRef, useState } from "react";
 import { FormField } from "~/components/form-field";
 import { Layout } from "~/components/layout";
@@ -10,7 +10,11 @@ import {
   validatePassword,
 } from "~/utils/validators.server";
 import { useActionData } from "@remix-run/react";
+import { getUser } from "~/utils/auth.server";
 
+export const loader: LoaderFunction = async ({ request }) => {
+  return (await getUser(request)) ? redirect("/") : null;
+};
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
   const action = form.get("_action");
@@ -114,7 +118,7 @@ export default function Login() {
   }, [formData]);
 
   useEffect(() => {
-    firstLoad.current = true;
+    firstLoad.current = false;
   }, []);
 
   return (
