@@ -19,8 +19,9 @@ export const createUser = async (user: RegisterForm) => {
 };
 
 // Find other users who are not logged in
+
 export const getOtherUsers = async (userId: string) => {
-  return await prisma.user.findMany({
+  return prisma.user.findMany({
     where: {
       id: { not: userId },
     },
