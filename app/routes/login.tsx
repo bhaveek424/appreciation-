@@ -1,4 +1,5 @@
-import { ActionFunction, json } from "@remix-run/node";
+import type { ActionFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import React, { useEffect, useRef, useState } from "react";
 import { FormField } from "~/components/form-field";
 import { Layout } from "~/components/layout";
