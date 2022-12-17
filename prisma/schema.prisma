@@ -19,22 +19,22 @@ model User {
   password  String
   profile   UserProfile?
   updatedAt DateTime     @db.Date
-  authoredAppreciation Appreciation[]   @relation("AuthoredKudos")
-  appreciation         Appreciation[]   @relation("RecievedKudos")
+  authoredAppreciation Kudo[]   @relation("AuthoredKudos")
+  appreciation         Kudo[]   @relation("RecievedKudos")
 }
 
-model Appreciation {
+model Kudo {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
   message     String
   createdAt   DateTime   @default(now())
-  style       AppreciationStyle?
+  style       KudoStyle?
   author      User       @relation(references: [id], fields: [authorId], "AuthoredKudos")
   authorId    String     @db.ObjectId
   recipient   User       @relation(references: [id], fields: [recipientId], "RecievedKudos")
   recipientId String     @db.ObjectId
 }
 
-type AppreciationStyle {
+type KudoStyle {
   backgroundColor Color @default(YELLOW)
   textColor       Color @default(WHITE)
   emoji           Emoji @default(THUMBSUP)
