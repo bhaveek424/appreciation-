@@ -1,7 +1,17 @@
 import { SelectBox } from "./select-box";
 import { sortOptions } from "~/utils/constants";
+import { useNavigate, useSearchParams } from "@remix-run/react";
 
 export function SearchBar() {
+  let [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const clearFilters = () => {
+    // clear out url parameters and navigate tohomepage
+    searchParams.delete("filter");
+    searchParams.delete("sort");
+    navigate("/");
+  };
   return (
     <form className="w-full px-6 flex items-center gap-x-4 border-b-4 border-b-blue-900 border-opacity-30 h-20">
       <div className={`flex items-center w-2/5`}>
@@ -28,9 +38,16 @@ export function SearchBar() {
       />
       <button
         type="submit"
-        className="rounded-xl bg-yellow-300 text-blue-600 px-3 py-2 transition duration-300 ease-in-out hover: bg-yellow-400 hover:-translate-y-1 ">
+        className="rounded-xl bg-yellow-300 text-blue-600 px-3 py-2 transition duration-300 ease-in-out hover:bg-yellow-400 hover:-translate-y-1 ">
         Search
       </button>
+      {searchParams.get("filter") && (
+        <button
+          onClick={clearFilters}
+          className="rounded-xl bg-red-300 font-semibold text-blue-600 px-3 py-2 transition duration-300 ease-in-out hover:bg-yellow-400 hover:-translate-y-1">
+          Clear Filters
+        </button>
+      )}
     </form>
   );
 }
