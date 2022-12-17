@@ -10,6 +10,7 @@ import { colorMap, emojiMap } from "~/utils/constants";
 import type { KudoStyle } from "@prisma/client";
 import { Kudo } from "~/components/kudo";
 import { getUser, requireUserId } from "~/utils/auth.server";
+import { createKudo } from "~/utils/kudo.server";
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
@@ -40,6 +41,13 @@ export const action: ActionFunction = async ({ request }) => {
     return json({ error: `No recipient found...` }, { status: 400 });
   }
 
+  await createKudo(message, userId, recipientId, {
+    backgroundColor,
+    textColor,
+    emoji,
+  } as KudoStyle);
+
+  return redirect("/home"); // this will close the modal
   // create user & redirect
 };
 export const loader: LoaderFunction = async ({ params, request }) => {
