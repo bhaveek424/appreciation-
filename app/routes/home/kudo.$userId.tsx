@@ -7,12 +7,53 @@ import { UserCircle } from "~/components/user-circle";
 import { getUserById } from "~/utils/users.server";
 import { SelectBox } from "~/components/select-box";
 import { colorMap, emojiMap } from "~/utils/constants";
-import type { KudoStyle } from "@prisma/client";
+import type { Color, Emoji, KudoStyle } from "@prisma/client";
 import { Kudo } from "~/components/kudo";
 import { getUser, requireUserId } from "~/utils/auth.server";
 import { createKudo } from "~/utils/kudo.server";
 
 export const action: ActionFunction = async ({ request }) => {
+  const userId = await requireUserId(request);
+
+  // 2
+  const form = await request.formData();
+  const message = form.get("message");
+  const backgroundColor = form.get("backgroundColor");
+  const textColor = form.get("textColor");
+  const emoji = form.get("emoji");
+  const recipientId = form.get("recipientId");
+
+  // 3
+  if (
+    typeof message !== "string" ||
+    typeof recipientId !== "string" ||
+    typeof backgroundColor !== "string" ||
+    typeof textColor !== "string" ||
+    typeof emoji !== "string"
+  ) {
+    return json({ error: `Invalid Form Data` }, { status: 400 });
+  }
+
+  if (!message.length) {
+    return json({ error: `Please provide a message.` }, { status: 400 });
+  }
+
+  if (!recipientId.length) {
+    return json({ error: `No recipient found...` }, { status: 400 });
+  }
+
+  // 4
+  await createKudo(message, userId, recipientId, {
+    backgroundColor: backgroundColor as Color,
+    textColor: textColor as Color,
+    emoji: emoji as Emoji,
+  });
+
+  // 5
+  return redirect("/home");
+};
+
+/**export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
   const userId = await requireUserId(request);
 
@@ -49,7 +90,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   return redirect("/home"); // this will close the modal
   // create user & redirect
-};
+}; */
 export const loader: LoaderFunction = async ({ params, request }) => {
   const { userId } = params;
   if (typeof userId !== "string") {
