@@ -1,9 +1,12 @@
-import { json, LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import React, { useState } from "react";
 import { FormField } from "~/components/form-field";
 import { Modal } from "~/components/modal";
 import { SelectBox } from "~/components/select-box";
 import { getUser } from "~/utils/auth.server";
+import { departments } from "~/utils/constants";
 
 export const loader: LoaderFunction = async ({ request }) => {
   // get user and return it as json
@@ -12,6 +15,18 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 export default function ProfileModal() {
   const { user } = useLoaderData();
+  const [formData, setFormData] = useState({
+    firstName: user?.profile.firstName,
+    lastName: user?.profile.lastName,
+    department: user?.profile.department,
+  });
+
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    field: string
+  ) => {
+    setFormData((form) => ({ ...form, [field]: event.target.value }));
+  };
   return (
     <Modal isOpen={true} className="w-1/3">
       <div className="p-3">
@@ -25,13 +40,13 @@ export default function ProfileModal() {
               <FormField
                 htmlFor="firstName"
                 label="First Name"
-                value={formData.firstname}
+                value={formData.firstName}
                 onChange={(e) => handleInputChange(e, "firstName")}
               />
               <FormField
                 htmlFor="lastName"
                 label="Last Name"
-                value={formData.firstname}
+                value={formData.lastName}
                 onChange={(e) => handleInputChange(e, "lastName")}
               />
 
@@ -41,7 +56,7 @@ export default function ProfileModal() {
                 label="Department"
                 name="department"
                 options={departments}
-                value={formData.departments}
+                value={formData.department}
                 onChange={(e) => handleInputChange(e, "department")}
               />
             </form>
