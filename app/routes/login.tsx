@@ -138,7 +138,7 @@ export default function Login() {
             : "Sign Up To Get Started!"}
         </p>
 
-        <form method="POST" className="rounded-2xl bg-gray-200 p-6 w-96">
+        <form method="post" className="rounded-2xl bg-gray-200 p-6 w-96">
           <div className="text-xs font-semibold text-center tracking-wide text-red-500 w-full">
             {formError}
           </div>

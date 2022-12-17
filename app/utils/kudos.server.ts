@@ -1,5 +1,7 @@
-import type { KudoStyle, Prisma } from "@prisma/client";
 import { prisma } from "./prisma.server";
+import type { KudoStyle, Prisma } from "@prisma/client";
+
+// ...
 
 export const getFilteredKudos = async (
   userId: string,

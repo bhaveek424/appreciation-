@@ -1,6 +1,6 @@
 // app/components/recent-bar.tsx
 
-import { User, Kudo } from "@prisma/client";
+import type { User, Kudo } from "@prisma/client";
 import { UserCircle } from "./user-circle";
 import { emojiMap } from "~/utils/constants";
 
