@@ -17,7 +17,7 @@ model User {
   createdAt DateTime     @db.Date
   email     String       @unique
   password  String
-  profile   UserProfile?
+  profile   Profile
   updatedAt DateTime     @db.Date
   authoredAppreciation Kudo[]   @relation("AuthoredKudos")
   appreciation         Kudo[]   @relation("RecievedKudos")
