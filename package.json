@@ -1,5 +1,6 @@
 {
   "private": true,
+  "description": "Appreciate your team members! Full Stack app made with Remix, TailwindCss, Prisma and MongoDB",
   "sideEffects": false,
   "scripts": {
     "build": "npm run build:css && remix build",
