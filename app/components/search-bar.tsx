@@ -2,7 +2,7 @@ import { SelectBox } from "./select-box";
 import { sortOptions } from "~/utils/constants";
 import { useNavigate, useSearchParams } from "@remix-run/react";
 import { UserCircle } from "./user-circle";
-import { Profile } from "@prisma/client";
+import type { Profile } from "@prisma/client";
 
 interface props {
   profile: Profile;

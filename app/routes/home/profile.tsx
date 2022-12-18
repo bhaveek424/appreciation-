@@ -1,5 +1,6 @@
 import type { Department } from "@prisma/client";
-import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useActionData, useLoaderData } from "@remix-run/react";
 import React, { useEffect, useRef, useState } from "react";
@@ -134,12 +135,12 @@ export default function ProfileModal() {
                 onChange={(e) => handleInputChange(e, "department")}
               />
 
-              <button
+              {/*<button
                 name="_action"
                 value="delete"
                 className="rounded-xl w-full bg-red-300 font-semibold text-white mt-4 px-16 py-2 transition duration-300 ease-in-out hover:bg-red-400 hover:-translate-y-1">
                 Delete Account
-              </button>
+            </button> */}
               <div className="w-full text-right mt-4">
                 <button
                   name="_action"
