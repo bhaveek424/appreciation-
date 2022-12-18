@@ -1,4 +1,8 @@
-import type { LoaderFunction, ActionFunction } from "@remix-run/node";
+import type {
+  LoaderFunction,
+  ActionFunction,
+  MetaFunction,
+} from "@remix-run/node";
 import { redirect, json } from "@remix-run/node";
 import React, { useEffect, useRef, useState } from "react";
 import { FormField } from "~/components/form-field";
@@ -11,6 +15,11 @@ import {
 } from "~/utils/validators.server";
 import { useActionData } from "@remix-run/react";
 import { getUser } from "~/utils/auth.server";
+
+export const meta: MetaFunction = () => ({
+  description: "Login to Appreciate you team!",
+  title: "Appreciation | Login",
+});
 
 export const loader: LoaderFunction = async ({ request }) => {
   return (await getUser(request)) ? redirect("/") : null;

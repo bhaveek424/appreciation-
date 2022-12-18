@@ -1,4 +1,4 @@
-import type { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { getUser, requireUserId } from "~/utils/auth.server";
 import { Layout } from "~/components/layout";
@@ -10,6 +10,11 @@ import { Kudo } from "~/components/kudo";
 import type { Kudo as IKudo, Prisma, Profile } from "@prisma/client";
 import { RecentBar } from "~/components/recent-bar";
 import { SearchBar } from "~/components/search-bar";
+
+export const meta: MetaFunction = () => ({
+  description: "Appreciate you team members and make thier day :)!",
+  title: "Appreciation | Home",
+});
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await requireUserId(request);
