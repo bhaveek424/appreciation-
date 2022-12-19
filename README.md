@@ -1,5 +1,6 @@
 # Appreciation
-![Login](https://user-images.githubusercontent.com/61945842/208417104-54529958-88f3-4310-b144-de1e53245d7a.png)
+![Appreciation cover](https://user-images.githubusercontent.com/61945842/208419890-d78333ac-d371-4c3b-8289-93b10a95ac74.png)
+
 
 > Social Networking App to appreciate your team members
 ## Tech Stacks
