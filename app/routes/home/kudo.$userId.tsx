@@ -141,7 +141,7 @@ export default function KudoModal() {
                 onChange={(e) => handleStyleChange(e, "backgroundColor")}
                 label="Background Color"
                 containerClassName="w-36"
-                className="w-full rounded-xl px-3 py-2 text-gray-400"
+                className="w-full rounded-xl bg-white px-3 py-2 text-gray-400"
               />
               <SelectBox
                 options={colors}
@@ -150,7 +150,7 @@ export default function KudoModal() {
                 onChange={(e) => handleStyleChange(e, "textColor")}
                 label="Text Color"
                 containerClassName="w-36"
-                className="w-full rounded-xl px-3 py-2 text-gray-400"
+                className="w-full rounded-xl bg-white px-3 py-2 text-gray-400"
               />
               <SelectBox
                 options={emojis}
@@ -159,7 +159,7 @@ export default function KudoModal() {
                 value={formData.style.emoji}
                 onChange={(e) => handleStyleChange(e, "emoji")}
                 containerClassName="w-36"
-                className="w-full rounded-xl px-3 py-2 text-gray-400"
+                className="w-full rounded-xl bg-white px-3 py-2 text-gray-400"
               />
             </div>
           </div>

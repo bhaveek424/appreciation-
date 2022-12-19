@@ -1,8 +1,4 @@
-import type {
-  LoaderFunction,
-  ActionFunction,
-  MetaFunction,
-} from "@remix-run/node";
+import type { LoaderFunction, ActionFunction, MetaFunction } from "@remix-run/node";
 import { redirect, json } from "@remix-run/node";
 import React, { useEffect, useRef, useState } from "react";
 import { FormField } from "~/components/form-field";
@@ -17,7 +13,8 @@ import { useActionData } from "@remix-run/react";
 import { getUser } from "~/utils/auth.server";
 
 export const meta: MetaFunction = () => ({
-  description: "Login to Appreciate you team!",
+  description:
+    "Login to Appreciate you team!",
   title: "Appreciation | Login",
 });
 
@@ -135,7 +132,7 @@ export default function Login() {
       <div className="h-full flex justify-center items-center flex-col gap-y-4">
         <button
           onClick={() => setAction(action == "login" ? "register" : "login")}
-          className="absolute top-8 right-8 rounded-xl bg-yellow-300 font-semibold text-green-600 px-3 py-2 transition duration-300 ease-in-out hover:bg-yellow-400 hover:-translate-y-1">
+          className="absolute top-8 right-8 rounded-xl bg-yellow-300 font-semibold text-blue-600 px-3 py-2 transition duration-300 ease-in-out hover:bg-yellow-400 hover:-translate-y-1">
           {action === "login" ? "Sign Up" : "Sign In"}
         </button>
         <h2 className="text-5xl font-extrabold text-yellow-300">
